@@ -7,7 +7,9 @@ import weka.core.converters.ArffSaver;
 import weka.core.converters.ArffLoader;
 import weka.core.converters.CSVSaver;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 
@@ -15,14 +17,11 @@ public class Classeur {
 
 	
 	private static String CSVfile = "traces.csv";
-	private static String ArffFile = "traces.arff";
+	private static String ArffFile = "traces_1000.arff";
 
 	public static Instances LoadARFF(String ArffFile) throws Exception{
 		ArffLoader loader = new ArffLoader();
-		
 		loader.setSource(new File(ArffFile));
-		
-		
 		Instances data = loader.getDataSet();
 		
 		return data;
@@ -55,24 +54,23 @@ public class Classeur {
 	
 	public static void SaveARFF(String ArffFile, Instances data) throws IOException{
 		
-		ArffSaver saver = new ArffSaver();
-		saver.setInstances(data);
-		saver.setFile(new File(ArffFile));
-		saver.setDestination(new File(ArffFile));
-		saver.writeBatch();
-		
+		BufferedWriter writer = new BufferedWriter(new FileWriter(ArffFile));
+		writer.write(data.toString());
+		writer.flush();
+		writer.close();
 	}
 	
 
 	public static void main(String[] args) throws Exception{
 		
-		/*Instances data = LoadCSV(CSVfile);
-		System.out.println(data.toString());
-		//SaveARFF(ArffFile, data);*/
+		Instances data = LoadCSV(CSVfile);
+		//System.out.println(data.toString());
+		SaveARFF(ArffFile, data);
 		
-		Instances data = LoadARFF(ArffFile);
-		//data.
-		/*Instances data = LoadARFF(ArffFile); 
+		/*Instances data = LoadARFF(ArffFile);
+		System.out.println(data.toString());*/
+		
+		/*Instances data = LoadARFF("essai.arff"); 
 		saveCSV("sortie.csv", data);*/
 	}	
 	

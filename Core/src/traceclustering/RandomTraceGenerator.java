@@ -97,26 +97,16 @@ public class RandomTraceGenerator {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		List<Object> evaluatedTrace = new ArrayList<Object>() ;
 		
-		Trace<AtomicEvent> trace1, trace2, trace3;
-		 trace1= new AtomicTrace();
-		 trace2= new AtomicTrace();
-		 trace3= new AtomicTrace();
-		
-		GenerateTrace(trace1, 15);
-		GenerateTrace(trace2, 15);
-		GenerateTrace(trace3, 15);
-		
-		//trace1.toString();
-		
-		
-		List<Object> etrace1 = evaluateTrace(trace1);
-		List<Object> etrace2 = evaluateTrace(trace2);
-		List<Object> etrace3 = evaluateTrace(trace3);
-		
-		saveTrace(etrace1, sauvegarde);
-		saveTrace(etrace2, sauvegarde);
-		saveTrace(etrace3, sauvegarde);
+		for (int i = 0; i < 1000; i++) {
+			
+			Trace<AtomicEvent> trace = new AtomicTrace();
+			GenerateTrace(trace, 15);
+			evaluatedTrace = evaluateTrace(trace);
+			saveTrace(evaluatedTrace, sauvegarde);
+			
+		}
 		
 		sauvegarde.close();
 		
